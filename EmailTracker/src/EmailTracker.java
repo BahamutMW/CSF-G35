@@ -42,7 +42,7 @@ public class EmailTracker {
 			String in = "";
 
 			System.out.println("Welcome to the Allmighty Email Tracer!");
-			System.out.println("We shall trace those header for you, Great User!");
+			System.out.println("We shall trace those headers for you, Great User!");
 
 			while (!exit) {
 
