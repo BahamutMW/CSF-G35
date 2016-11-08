@@ -17,8 +17,5 @@ public class ip_splitter {
 		}
 	}
 		
-	public static void main(String[] args) {
-		split("aaa 192.1.123.123\n 2.3.4.5   sas");
-	}
 	
 }
