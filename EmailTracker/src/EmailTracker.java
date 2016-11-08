@@ -19,7 +19,7 @@ import com.maxmind.geoip2.record.Subdivision;
 
 public class EmailTracker {
 	private UserInterface ui;
-	
+
 	public static void main(String[] args) {
 		EmailTracker et = new EmailTracker();
 		ip_splitter ip = new ip_splitter();
@@ -39,7 +39,6 @@ public class EmailTracker {
 		private boolean exit;
 		private EmailTracker _context;
 		private UserInterface ui;
-		
 
 		public UserInterface(EmailTracker context) {
 			_context = context;
@@ -49,40 +48,42 @@ public class EmailTracker {
 			exit = b;
 		}
 
-		public void trace(String IP) throws IOException, GeoIp2Exception{
+		public void trace(String IP) throws IOException, GeoIp2Exception {
 			String filename = "C:\\Users\\Mike\\git\\CSF-G35\\EmailTracker\\src\\City.mmdb";
 			// A File object pointing to your GeoIP2 or GeoLite2 database
 			File database = new File(filename);
 
-			// This creates the DatabaseReader object, which should be reused across
+			// This creates the DatabaseReader object, which should be reused
+			// across
 			// lookups.
 			DatabaseReader reader = new DatabaseReader.Builder(database).build();
 
 			InetAddress ipAddress = InetAddress.getByName(IP);
 
-			// Replace "city" with the appropriate method for your database, e.g.,
+			// Replace "city" with the appropriate method for your database,
+			// e.g.,
 			// "country".
 			CityResponse response = reader.city(ipAddress);
 
 			Country country = response.getCountry();
-			System.out.println("Country Iso Code: " + country.getIsoCode());        
-			System.out.println("Country: " +country.getName());              
+			System.out.println("Country Iso Code: " + country.getIsoCode());
+			System.out.println("Country: " + country.getName());
 
 			Subdivision subdivision = response.getMostSpecificSubdivision();
-			System.out.println("State Iso Code: " +subdivision.getIsoCode()); 
-			System.out.println("State: " +subdivision.getName());   
+			System.out.println("State Iso Code: " + subdivision.getIsoCode());
+			System.out.println("State: " + subdivision.getName());
 
 			City city = response.getCity();
-			System.out.println("City: " +city.getName()); 
+			System.out.println("City: " + city.getName());
 
 			Postal postal = response.getPostal();
-			System.out.println("Postal Code: " +postal.getCode()); 
+			System.out.println("Postal Code: " + postal.getCode());
 
 			Location location = response.getLocation();
-			System.out.println("Latitude: " +location.getLatitude());  
-			System.out.println("Longitude: " +location.getLongitude()); 
+			System.out.println("Latitude: " + location.getLatitude());
+			System.out.println("Longitude: " + location.getLongitude());
 		}
-		
+
 		@Override
 		public void run() {
 			System.out.println("User Interface loaded...");
@@ -99,7 +100,7 @@ public class EmailTracker {
 					setExit(true);
 
 				} else
-				System.out.println("Insert the file path:");
+					System.out.println("Insert the file path:");
 				System.out.print("#>:");
 				in = input.nextLine();
 				while ((!in.toLowerCase().matches(UI_WINDOWS)) || (!in.toLowerCase().matches(UI_LINUX))) {
@@ -110,7 +111,7 @@ public class EmailTracker {
 				Path path = Paths.get(in);
 				try {
 					byte[] data = Files.readAllBytes(path);
-					String header = new String (data);
+					String header = new String(data);
 					System.out.println("Now retrieving IP data...");
 					ip_splitter.split(header);
 					System.out.println("Select the IP you want to trace");
