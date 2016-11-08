@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,7 +50,9 @@ public class EmailTracker {
 		}
 
 		public void trace(String IP) throws IOException, GeoIp2Exception {
-			String filename = "C:\\Users\\Mike\\git\\CSF-G35\\EmailTracker\\src\\City.mmdb";
+			URL url = getClass().getResource("City.mmdb");
+			String filename = url.getPath();
+
 			// A File object pointing to your GeoIP2 or GeoLite2 database
 			File database = new File(filename);
 
@@ -101,6 +104,7 @@ public class EmailTracker {
 
 				} else
 					System.out.println("Insert the file path:");
+
 				System.out.print("#>:");
 				in = input.nextLine();
 				while ((!in.toLowerCase().matches(UI_WINDOWS)) || (!in.toLowerCase().matches(UI_LINUX))) {

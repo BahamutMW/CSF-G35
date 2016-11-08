@@ -1,0 +1,46 @@
+Return-Path: <miguel.guerra@tecnico.ulisboa.pt>
+Delivered-To: ist169494+anabela.borges-ist.utl.pt@mail3-store.ist.utl.pt
+Received: from smtp2.tecnico.ulisboa.pt (smtp2.tecnico.ulisboa.pt [193.136.128.22])
+	by mail3.ist.utl.pt (Postfix) with ESMTP id 20D0A8026D69
+	for <ist169494+anabela.borges-ist.utl.pt@mail.ist.utl.pt>; Tue,  8 Nov 2016 19:25:41 +0000 (WET)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp2.tecnico.ulisboa.pt (Postfix) with ESMTP id 87FA2700035C
+	for <anabela.borges@ist.utl.pt>; Tue,  8 Nov 2016 19:25:40 +0000 (WET)
+X-Virus-Scanned: by amavisd-new-2.10.1 (20141025) (Debian) at ist.utl.pt
+Received: from smtp2.tecnico.ulisboa.pt ([127.0.0.1])
+	by localhost (smtp2.tecnico.ulisboa.pt [127.0.0.1]) (amavisd-new, port 10025)
+	with LMTP id U3Pvs2vTc_Lx for <anabela.borges@ist.utl.pt>;
+	Tue,  8 Nov 2016 19:25:40 +0000 (WET)
+Received: from mail3.ist.utl.pt (mail3.ist.utl.pt [IPv6:2001:690:2100:1::e1dc:b6b6])
+	by smtp2.tecnico.ulisboa.pt (Postfix) with ESMTP id 2FE137000360
+	for <anabela.borges@ist.utl.pt>; Tue,  8 Nov 2016 19:25:40 +0000 (WET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tecnico.ulisboa.pt;
+	s=mail; t=1478633140;
+	bh=SggAfMinBos/Aei5Io5PY6N9ByZFPpr/QsMMo2Ls6qU=;
+	h=Date:From:To:Subject:In-Reply-To:References;
+	b=lXh8RqBV2XgjjnKT1KDRgAoj9EebkrhG3RMOBFuYNb9tZXTZgfgLcka7KEs7IdLEf
+	 mopwjgi+Z0j22zHtkhTKVb8274Bwgku5TE5PiF05cctu6+Z2YdAMDkLwjKvI/yEvOl
+	 SfrCL5KWgI8IKdvyYt1h/wjMzbz0iMleNIOWKCos=
+Received: from webmail.tecnico.ulisboa.pt (webmail3.tecnico.ulisboa.pt [IPv6:2001:690:2100:1::912f:b135])
+	(Authenticated sender: ist169770)
+	by mail3.ist.utl.pt (Postfix) with ESMTPSA id A51CD8026D69
+	for <anabela.borges@ist.utl.pt>; Tue,  8 Nov 2016 19:25:40 +0000 (WET)
+Received: from a109-49-150-47.cpe.netcabo.pt ([109.49.150.47])
+ via vs1.ist.utl.pt ([2001:690:2100:1::33])
+ by webmail.tecnico.ulisboa.pt
+ with HTTP (HTTP/1.1 POST); Tue, 08 Nov 2016 19:25:40 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 08 Nov 2016 19:25:40 +0000
+From: Miguel Correia Guerra <miguel.guerra@tecnico.ulisboa.pt>
+To: Anabela Sofia Martins Borges <anabela.borges@ist.utl.pt>
+Subject: Teste ciber
+In-Reply-To: <b3c174cca2013a491346f77f4a682e11@mail.ist.utl.pt>
+References: <b3c174cca2013a491346f77f4a682e11@mail.ist.utl.pt>
+Message-ID: <acc0062e847f8b1b7cc4276b25068acf@mail.tecnico.ulisboa.pt>
+X-Sender: miguel.guerra@tecnico.ulisboa.pt
+User-Agent: Roundcube Webmail/1.1.3
+
+Email de teste.
