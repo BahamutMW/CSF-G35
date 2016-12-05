@@ -5,11 +5,13 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 import com.maxmind.*;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.WebServiceClient;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.maxmind.geoip2.exception.AddressNotFoundException;
 import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.model.CountryResponse;
 import com.maxmind.geoip2.record.City;
@@ -43,10 +45,6 @@ public class EmailTracker {
 
 		public UserInterface(EmailTracker context) {
 			_context = context;
-		}
-
-		public void setExit(boolean b) {
-			exit = b;
 		}
 
 		public void trace(String IP) throws IOException, GeoIp2Exception {
@@ -90,50 +88,45 @@ public class EmailTracker {
 		@Override
 		public void run() {
 			System.out.println("User Interface loaded...");
-			setExit(false);
 			Scanner input = new Scanner(System.in);
 			String in = "";
 
 			System.out.println("Welcome to the Allmighty Email Tracer!");
 			System.out.println("We shall trace those headers for you, Great User!");
 
-			while (!exit) {
-
-				if (in.toLowerCase().matches(UI_QUIT)) {
-					setExit(true);
-
-				} else
-					System.out.println("Insert the file path:");
-
-				System.out.print("#>:");
-				in = input.nextLine();
-				while ((!in.toLowerCase().matches(UI_WINDOWS)) || (!in.toLowerCase().matches(UI_LINUX))) {
-					System.out.println("Invalid path");
-					System.out.print("#>:");
-					in = input.nextLine();
+			while (true) {
+				if (in.toLowerCase().matches(UI_QUIT)) { // EXIT
+					System.out.println("User Interface closed...");
+					input.close();
+					System.exit(1);
 				}
+
+				System.out.printf("Insert the file path:\n#>:");
+				in = input.nextLine();
+
 				Path path = Paths.get(in);
 				try {
 					byte[] data = Files.readAllBytes(path);
 					String header = new String(data);
 					System.out.println("Now retrieving IP data...");
-					ip_splitter.split(header);
-					System.out.println("Select the IP you want to trace");
-					System.out.print("#>:");
+					List<String> foundIPs = ip_splitter.split(header);
+					for (int i=0; i< foundIPs.size();i++)
+						System.out.printf("[%d] %s\n", i, foundIPs.get(i));
+					System.out.printf("Select the IP you want to trace\n#>:");
 					in = input.nextLine();
-					this.trace(in);
-
+					System.out.printf("Searching for IP: %s\n", foundIPs.get(Integer.parseInt(in)));
+					try {
+						this.trace(foundIPs.get(Integer.parseInt(in)));
+					} catch (AddressNotFoundException e) {
+						System.out.printf("IP adress [%s] was not found in the database.\n", foundIPs.get(Integer.parseInt(in)));
+					} catch (GeoIp2Exception e) {
+						e.printStackTrace();
+					}
 				} catch (IOException e) {
-					System.out.println("Problem in the IO");
-				} catch (GeoIp2Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("Invalid File Path.");
 				}
 
 			}
-			System.out.println("User Interface closed...");
-			input.close();
 		}
-
 	}
 }
