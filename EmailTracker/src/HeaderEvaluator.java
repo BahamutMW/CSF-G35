@@ -1,7 +1,5 @@
 import java.util.Vector;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.Header;
-
 public class HeaderEvaluator {
 	private Vector<Integer> received;
 	private Vector<String> rcved;
