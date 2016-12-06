@@ -1,6 +1,20 @@
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HeaderEvaluator {
+
+	// REGEX PATTERNS
+	private String HOSTNAME_REGEX_STRING = "[a-zA-Z0-9._+-]+";
+	private String EMAIL_REGEX_STRING = HOSTNAME_REGEX_STRING+"@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+";
+
+	private Pattern RETURN_PATH_RE = Pattern.compile("Return-Path: <("+EMAIL_REGEX_STRING+")");
+	private Pattern DELIVARED_TO_RE = Pattern.compile("Delivered-to: .*"); // TODO
+	private Pattern RECEIVED_RE = Pattern.compile("Received: from (" + HOSTNAME_REGEX_STRING
+			+ ")\\s\\((.+)?\\[(.+)\\]\\)\n\\sby (" + HOSTNAME_REGEX_STRING + ") \\((" + HOSTNAME_REGEX_STRING
+			+ ")( \\[(.+)\\])?\\).*\n\\s(with.+)?for <(" + HOSTNAME_REGEX_STRING + ">.*");
+
+
 	private Vector<Integer> received;
 	private Vector<String> rcved;
 	private int returnPath;
