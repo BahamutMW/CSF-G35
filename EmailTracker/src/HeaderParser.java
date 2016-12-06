@@ -14,8 +14,11 @@ public class HeaderParser {
 	private Pattern RETURN_PATH_RE = Pattern.compile("Return-Path: <("+EMAIL_REGEX_STRING+")>");
 	private Pattern DELIVERED_TO_RE = Pattern.compile("Delivered-To: .*"); // TODO
 	private Pattern RECEIVED_RE = Pattern.compile("Received: from (" + HOSTNAME_REGEX_STRING
-			+ ")\\s\\((.+)?\\[(.+)\\]\\)(\r)?\n\\sby (" + HOSTNAME_REGEX_STRING + ") \\((" + HOSTNAME_REGEX_STRING
+			+ ")\\s\\((.+)?\\[(.+)\\]\\)((\r)?\n\\s\\(Authenticated sender: .+)?((\r)?\n\\svia ("
+			+ HOSTNAME_REGEX_STRING + ")\\s\\((.+)?\\[(.+)\\]\\))?(\r)?\n\\sby ("
+			+ HOSTNAME_REGEX_STRING + ") \\((" + HOSTNAME_REGEX_STRING
 			+ ")( \\[(.+)\\])?\\).*(\r)?\n\\s(with.+)?((\r)?\n\\s)?for <(" + EMAIL_REGEX_STRING + ")>.*");
+	// testing https://regex101.com/r/n2Nq8k/2
 
 	// TODO ADD MORE PATTERNS
 	// ...
@@ -33,17 +36,17 @@ public class HeaderParser {
 			Matcher del = DELIVERED_TO_RE.matcher(toParse);
 			Matcher rc = RECEIVED_RE.matcher(toParse);
 
-			if (rp.find() && rp.groupCount() == 1) {
+			if (toParse.startsWith("Return-Path") && rp.find() && rp.groupCount() == 1) {
 				System.out.println(rp.group(1));
 				i += rp.group().length();
 				// TODO parse groups and save them
 			}
-			else if (del.find()) {
+			else if (toParse.startsWith("Delivered-To") && del.find()) {
 				System.out.println(del.group());
 				i += del.group().length();
 				// TODO parse groups and save them
 			}
-			else if (rc.find()) {
+			else if (toParse.startsWith("Received") && rc.find()) {
 				System.out.println(rc.group());
 				i += rc.group().length();
 				// TODO parse groups and save them
