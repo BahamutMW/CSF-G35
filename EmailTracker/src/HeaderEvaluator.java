@@ -16,15 +16,15 @@ public class HeaderEvaluator {
 	private int xSender;
 	private String xs;
 	private Vector<String> id;
-	private String[] email; 
-	
+	private String[] email;
+
 	public HeaderEvaluator(String _email){
 		email = _email.split("\n");
 		received = new Vector<Integer>();
 		rcved = new Vector<String>();
 		id = new Vector<String>();
 	}
-	
+
 	public void Evaluate(){
 		for (int i = 0; i < email.length; i++) {
 	        if (email[i].startsWith("Return-Path:")) {
@@ -56,10 +56,9 @@ public class HeaderEvaluator {
 	        		id.add(i, "empty");
 	        	}
 	        }
-	        	
 	    }
 	}
-	
+
 	public void Received(){
 		String rcv = "";
 		for(int j = 0; j < received.size(); j++){
@@ -83,7 +82,7 @@ public class HeaderEvaluator {
 		rcved.add(rcv);
 		return;
 	}
-	
+
 	public void DeliveredTo(){
 		dt = "";
 		for(int i = deliveredTo; i < email.length; i++){
@@ -150,13 +149,13 @@ public class HeaderEvaluator {
 		}
 		return;
 	}
-	
+
 	public void prints(){
 		for (int i = 0; i < email.length; i++) {
 			System.out.println(i + ": " + email[i]);
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		HeaderEvaluator he = new HeaderEvaluator("Return-Path: <miguel.guerra@tecnico.ulisboa.pt>\n"
 				+ "Delivered-To: ist169494+anabela.borges-ist.utl.pt@mail3-store.ist.utl.pt\n"

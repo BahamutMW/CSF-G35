@@ -39,7 +39,6 @@ public class EmailTracker {
 		private static final String UI_NUMBERS = "^bs\\s[\\-0-9]+";
 		private static final String UI_WINDOWS = "(?:[\\w]\\:|\\\\|\\.|\\.\\.)(\\\\[A-Za-z_\\-\\s0-9\\.]+)+\\.(txt|log)";
 		private static final String UI_LINUX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?";
-		private boolean exit;
 		private EmailTracker _context;
 		private UserInterface ui;
 
