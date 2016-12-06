@@ -7,13 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
-import com.maxmind.*;
 import com.maxmind.geoip2.DatabaseReader;
-import com.maxmind.geoip2.WebServiceClient;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
 import com.maxmind.geoip2.model.CityResponse;
-import com.maxmind.geoip2.model.CountryResponse;
 import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Country;
 import com.maxmind.geoip2.record.Location;
@@ -25,7 +22,6 @@ public class EmailTracker {
 
 	public static void main(String[] args) {
 		EmailTracker et = new EmailTracker();
-		ip_splitter ip = new ip_splitter();
 		et.StartUI(et);
 	}
 
@@ -36,9 +32,6 @@ public class EmailTracker {
 
 	private class UserInterface implements Runnable {
 		private static final String UI_QUIT = "^quit";
-		private static final String UI_NUMBERS = "^bs\\s[\\-0-9]+";
-		private static final String UI_WINDOWS = "(?:[\\w]\\:|\\\\|\\.|\\.\\.)(\\\\[A-Za-z_\\-\\s0-9\\.]+)+\\.(txt|log)";
-		private static final String UI_LINUX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?";
 		private EmailTracker _context;
 		private UserInterface ui;
 
@@ -108,7 +101,7 @@ public class EmailTracker {
 					byte[] data = Files.readAllBytes(path);
 					String header = new String(data);
 					System.out.println("Now retrieving IP data...");
-					List<String> foundIPs = ip_splitter.split(header);
+					List<String> foundIPs = HeaderParser.getIPs(header);
 					for (int i=0; i< foundIPs.size();i++)
 						System.out.printf("[%d] %s\n", i, foundIPs.get(i));
 					System.out.printf("Select the IP you want to trace\n#>:");
@@ -124,7 +117,6 @@ public class EmailTracker {
 				} catch (IOException e) {
 					System.out.println("Invalid File Path.");
 				}
-
 			}
 		}
 	}

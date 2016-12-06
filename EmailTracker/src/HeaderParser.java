@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +13,7 @@ public class HeaderParser {
 	private String HOSTNAME_REGEX_STRING = "[a-zA-Z0-9._+-]+";
 	private String EMAIL_REGEX_STRING = HOSTNAME_REGEX_STRING+"@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+";
 
+	private static Pattern IP_RE = Pattern.compile("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
 	private Pattern RETURN_PATH_RE = Pattern.compile("Return-Path: <("+EMAIL_REGEX_STRING+")>");
 	private Pattern DELIVERED_TO_RE = Pattern.compile("Delivered-To: .*"); // TODO
 	private Pattern RECEIVED_RE = Pattern.compile("Received: from (" + HOSTNAME_REGEX_STRING
@@ -54,6 +57,16 @@ public class HeaderParser {
 
 			// ...
 		}
+	}
+
+	public static List<String> getIPs(String text) {
+		// TODO also match IPv6
+		Matcher ip = IP_RE.matcher(text);
+		List<String> foundIPs = new ArrayList<String>();
+		while (ip.find()) {
+			foundIPs.add(ip.group());
+		}
+		return foundIPs;
 	}
 
 	public static void main(String[] args) {
