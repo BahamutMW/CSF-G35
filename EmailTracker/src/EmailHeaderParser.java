@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HeaderParser {
+public class EmailHeaderParser {
 
 	private final String HOSTNAME_REGEX_STRING = "[a-zA-Z0-9._+-]+";
 	private final String EMAIL_REGEX_STRING = HOSTNAME_REGEX_STRING + "@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+";
@@ -67,7 +67,7 @@ public class HeaderParser {
 	public String to_Name;
 	public String to_Email;
 
-	public HeaderParser(String emailHeader) {
+	public EmailHeaderParser(String emailHeader) {
 		this.receiverPath = new ArrayList<Receiver>();
 		this.parse(emailHeader);
 	}
@@ -127,8 +127,8 @@ public class HeaderParser {
 		}
 	}
 
+	// XXX Not used
 	public static List<String> getIPs(String text) {
-		// TODO Find IPv6
 		Matcher ipv4 = IPv4_RE.matcher(text);
 		List<String> foundIPs = new ArrayList<String>();
 		while (ipv4.find()) foundIPs.add(ipv4.group());
@@ -142,10 +142,10 @@ public class HeaderParser {
 		try {
 			data = Files.readAllBytes(path);
 			String header = new String(data);
-			HeaderParser he = new HeaderParser(header);
+			EmailHeaderParser he = new EmailHeaderParser(header);
 			// example:
 			System.out.println("Header Path: ");
-			for (HeaderParser.Receiver r : he.receiverPath) {
+			for (EmailHeaderParser.Receiver r : he.receiverPath) {
 				System.out.printf("%s [%s] -> %s\n", r.fromHostname, r.fromIP, r.date);
 			}
 		} catch (IOException e) {

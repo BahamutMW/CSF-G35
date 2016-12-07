@@ -5,7 +5,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Scanner;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
@@ -93,6 +92,7 @@ public class EmailTracker {
 					System.exit(1);
 				}
 
+				// ------ Select File
 				System.out.printf("Insert the file path:\n#>:");
 				in = input.nextLine();
 
@@ -100,26 +100,41 @@ public class EmailTracker {
 				try {
 					byte[] data = Files.readAllBytes(path);
 					String header = new String(data);
+
+					// ------ Parse given file
+					System.out.println("Parsing File...");
+					EmailHeaderParser hp = new EmailHeaderParser(header);
+
+					// TODO options to select what action to take
+
+					// ------ Present retrieved IPs
 					System.out.println("Now retrieving IP data...");
-					List<String> foundIPs = HeaderParser.getIPs(header);
-					for (int i=0; i< foundIPs.size();i++)
-						System.out.printf("[%d] %s\n", i, foundIPs.get(i));
-					if (! (foundIPs.size() > 0)) {
+					for (int i=0; i< hp.receiverPath.size();i++) {
+						EmailHeaderParser.Receiver r = hp.receiverPath.get(i);
+						System.out.printf("[%d] %s [ %s ] - (%s)\n", i, r.fromIP, r.fromHostname, r.date);
+					}
+
+					if (! (hp.receiverPath.size() > 0)) {
 						System.out.println("No IPs were found.");
 						continue;
 					}
+
+					// ------ Select IP
 					System.out.printf("Select the IP you want to trace\n#>:");
 					in = input.nextLine();
-					System.out.printf("Searching for IP: %s\n", foundIPs.get(Integer.parseInt(in)));
+					String selectedIP = hp.receiverPath.get(Integer.parseInt(in)).fromIP;
+					System.out.printf("Searching for IP: %s\n", selectedIP);
+
+					// ------ Trace IP
 					try {
-						this.trace(foundIPs.get(Integer.parseInt(in)));
+						this.trace(selectedIP);
 					} catch (AddressNotFoundException e) {
-						System.out.printf("IP adress [%s] was not found in the database.\n", foundIPs.get(Integer.parseInt(in)));
+						System.out.printf("IP adress [%s] was not found in the database.\n", selectedIP);
 					} catch (GeoIp2Exception e) {
 						e.printStackTrace();
 					}
 				} catch (IOException e) {
-					System.out.println("Invalid File Path.");
+					System.out.println("IOException: " + e.getMessage());
 				}
 			}
 		}
