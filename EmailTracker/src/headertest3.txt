@@ -1,0 +1,90 @@
+Delivered-To: fabio4335@gmail.com
+Received: by 10.194.8.34 with SMTP id o2csp1702232wja;
+        Mon, 3 Oct 2016 10:45:27 -0700 (PDT)
+X-Received: by 10.28.107.22 with SMTP id g22mr10038252wmc.31.1475516727148;
+        Mon, 03 Oct 2016 10:45:27 -0700 (PDT)
+Return-Path: <miguel.guerra@tecnico.ulisboa.pt>
+Received: from smtp2.tecnico.ulisboa.pt (smtp2.tecnico.ulisboa.pt. [2001:690:2100:1::16])
+        by mx.google.com with ESMTP id m125si19802939wme.54.2016.10.03.10.45.26
+        for <fabio4335@gmail.com>;
+        Mon, 03 Oct 2016 10:45:27 -0700 (PDT)
+Received-SPF: pass (google.com: domain of miguel.guerra@tecnico.ulisboa.pt designates 2001:690:2100:1::16 as permitted sender) client-ip=2001:690:2100:1::16;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@tecnico.ulisboa.pt;
+       spf=pass (google.com: domain of miguel.guerra@tecnico.ulisboa.pt designates 2001:690:2100:1::16 as permitted sender) smtp.mailfrom=miguel.guerra@tecnico.ulisboa.pt;
+       dmarc=pass (p=NONE dis=NONE) header.from=tecnico.ulisboa.pt
+Received: from localhost (localhost.localdomain [127.0.0.1]) by smtp2.tecnico.ulisboa.pt (Postfix) with ESMTP id 88A52700034A for <fabio4335@gmail.com>; Mon,
+  3 Oct 2016 18:45:26 +0100 (WEST)
+X-Virus-Scanned: by amavisd-new-2.10.1 (20141025) (Debian) at ist.utl.pt
+Received: from smtp2.tecnico.ulisboa.pt ([127.0.0.1]) by localhost (smtp2.tecnico.ulisboa.pt [127.0.0.1]) (amavisd-new, port 10025) with LMTP id PuEYIzfEhf32 for <fabio4335@gmail.com>; Mon,
+  3 Oct 2016 18:45:26 +0100 (WEST)
+Received: from mail3.ist.utl.pt (mail3.ist.utl.pt [IPv6:2001:690:2100:1::e1dc:b6b6]) by smtp2.tecnico.ulisboa.pt (Postfix) with ESMTP id 2DBF07000343 for <fabio4335@gmail.com>; Mon,
+  3 Oct 2016 18:45:26 +0100 (WEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tecnico.ulisboa.pt; s=mail; t=1475516726; bh=hW2V/SSvKvapbE8RDG6oOrdbyMgqSKvtjcsEsUTdqEM=; h=Date:From:To:Subject:In-Reply-To:References; b=OTZi69Ake8tp4LC3g86Sh6IUPsxBu5xjBKr55ucgqquP9llF4K/FkiD/bBb6EB6Uj
+	 s/f29OECBwKSY+ilItgE3oSJos+Ofk8USxIEdeLNdxZ7/XUwcJcN9J5TlXkq667QuI
+	 av9femg3VkEnMdNfal0LSe5DkRXs/lp8g+FaYW44=
+Received: from webmail.tecnico.ulisboa.pt (webmail3.tecnico.ulisboa.pt [IPv6:2001:690:2100:1::912f:b135]) (Authenticated sender: ist169770) by mail3.ist.utl.pt (Postfix) with ESMTPSA id 2B4118020B2D for <fabio4335@gmail.com>; Mon,
+  3 Oct 2016 18:45:26 +0100 (WEST)
+Received: from a109-49-150-47.cpe.netcabo.pt ([109.49.150.47]) via vs1.ist.utl.pt ([2001:690:2100:1::33]) by webmail.tecnico.ulisboa.pt with HTTP (HTTP/1.1 POST); Mon, 03 Oct 2016 18:45:26 +0100
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="=_fd8cd52d8e4afcc82359e6ef9d311b83"
+Date: Mon, 03 Oct 2016 18:45:26 +0100
+From: Miguel Correia Guerra <miguel.guerra@tecnico.ulisboa.pt>
+To: Fabio R <fabio4335@gmail.com>
+Subject: Re: Grupo de CSF
+In-Reply-To: <CA+=WjcS5prb_3Y8UEyYxs5A0k3sL-x_RXqyV7sT-xrxjzC9sJw@mail.gmail.com>
+References: <CA+=WjcS5prb_3Y8UEyYxs5A0k3sL-x_RXqyV7sT-xrxjzC9sJw@mail.gmail.com>
+Message-ID: <295cb2eb56812585a26b9825f986ae7b@mail.tecnico.ulisboa.pt>
+X-Sender: miguel.guerra@tecnico.ulisboa.pt
+User-Agent: Roundcube Webmail/1.1.3
+
+--=_fd8cd52d8e4afcc82359e6ef9d311b83
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+
+
+
+Boas, sim eu vi o mail do professor. Ainda não temos nada definido em
+concreto, pelo que estamos abertos a sugestões.
+
+De qualquer forma se tiveres tempo quarta ou quinta podemos combinar
+isso. Quando é que te dava mais jeito?
+
+A 2016-10-03 11:56, Fabio R escreveu:
+
+> Bom dia, sou o Fabio, o professor juntou-me ao vosso grupo de CSF.
+> Já tem um projecto definido? Querem combinar um dia para nos juntarmos e fazermos a proposta?
+> O meu numero é: 966996041
+> Digam-me qualquer coisa.
+> Cumprimentos.
+
+
+--=_fd8cd52d8e4afcc82359e6ef9d311b83
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3DUTF-8" /></head><body style=3D'font-size: 10pt; font-family: Verdana,Gen=
+eva,sans-serif'>
+<p>Boas, sim eu vi o mail do professor. Ainda n&atilde;o temos nada definid=
+o em concreto, pelo que estamos abertos a sugest&otilde;es.</p>
+<p>De qualquer forma se tiveres tempo quarta ou quinta podemos combinar iss=
+o. Quando &eacute; que te dava mais jeito?</p>
+<p>A 2016-10-03 11:56, Fabio R escreveu:</p>
+<blockquote type=3D"cite" style=3D"padding: 0 0.4em; border-left: #1010ff 2=
+px solid; margin: 0"><!-- html ignored --><!-- head ignored --><!-- meta ig=
+nored -->
+<div dir=3D"ltr">Bom dia, sou o Fabio, o professor juntou-me ao vosso grupo=
+ de CSF.
+<div>J&aacute; tem um projecto definido? Querem combinar um dia para nos ju=
+ntarmos e fazermos a proposta?</div>
+<div>O meu numero &eacute;: 966996041</div>
+<div>Digam-me qualquer coisa.</div>
+<div>Cumprimentos.</div>
+</div>
+</blockquote>
+<p>&nbsp;</p>
+<div>&nbsp;</div>
+</body></html>
+
+--=_fd8cd52d8e4afcc82359e6ef9d311b83--
