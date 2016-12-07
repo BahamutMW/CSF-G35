@@ -9,16 +9,18 @@ import java.util.regex.Pattern;
 
 public class HeaderParser {
 
-	private static Pattern IP_RE = Pattern.compile("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+	private final String HOSTNAME_REGEX_STRING = "[a-zA-Z0-9._+-]+";
+	private final String EMAIL_REGEX_STRING = HOSTNAME_REGEX_STRING + "@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+";
+	private final String IP_GENERIC_REGEX_STRING = "[IPv0-9:a-f.]+";
 
-	// REGEX PATTERNS
-	private String HOSTNAME_REGEX_STRING = "[a-zA-Z0-9._+-]+";
-	private String EMAIL_REGEX_STRING = HOSTNAME_REGEX_STRING + "@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+";
-	private String IP_GENERIC_REGEX_STRING = "[IPv0-9:a-f.]+";
+	// PATTERNS
+
+	private static Pattern IPv4_RE = Pattern.compile("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
 
 	private Pattern RETURN_PATH_RE = Pattern.compile("^Return-Path: <(" + EMAIL_REGEX_STRING + ")>");
 	private Pattern DELIVERED_TO_RE = Pattern.compile("^Delivered-To: (.+)");
 
+	// FIXME Doesnt capture forEmail...
 	private Pattern RECEIVED_RE = Pattern.compile("^Received:(?: from (?<fromHostname>" + HOSTNAME_REGEX_STRING
 			+ ")\\s\\((?<fromDomain>" + HOSTNAME_REGEX_STRING + "\\s)?\\[(?<fromIP>." + IP_GENERIC_REGEX_STRING
 			+ ")\\]\\))?(?:\\s\\(Authenticated sender: (?<authenticatedSender>.+)\\))?(?:\\svia (?<viaHostname>"
@@ -26,30 +28,11 @@ public class HeaderParser {
 			+ HOSTNAME_REGEX_STRING + ")(?: \\((?<byDomain>" + HOSTNAME_REGEX_STRING + ")(?: \\[(?<byIP>"
 			+ IP_GENERIC_REGEX_STRING + ")\\])?\\).*)?(?:\\swith.+)?(?:\\sfor <(?<forEmail>" + EMAIL_REGEX_STRING
 			+ ")>)?.*;(?<date>.+) ");
-
-/*
-	// FIXME this pattern matches multiline dates but for some reason it doesnt match a few on the headertest.txt, the on bellow does but doesnt match multiline dates...
-	private Pattern RECEIVED_RE = Pattern.compile("^Received:( from (" + HOSTNAME_REGEX_STRING
-			+ ")\\s\\((.+)?\\[(.+)\\]\\))?(\\s\\(Authenticated sender: (.+)\\))?(\\svia ("
-			+ HOSTNAME_REGEX_STRING + ")\\s\\((.+)?\\[(.+)\\]\\))?\\sby (" + HOSTNAME_REGEX_STRING + ")( \\(("
-			+ HOSTNAME_REGEX_STRING + ")( \\[(.+)\\])?\\).*)?\\s(with.+)?(\\s)?(for <("
-			+ EMAIL_REGEX_STRING + ")>)?.*;(.+)");
-
-/*
-	private Pattern RECEIVED_RE = Pattern.compile("^Received:( from (" + HOSTNAME_REGEX_STRING
-			+ ")\\s\\((.+)?\\[(.+)\\]\\))?(\\s\\(Authenticated sender: (.+)\\))?((\r)?\n\\svia ("
-			+ HOSTNAME_REGEX_STRING + ")\\s\\((.+)?\\[(.+)\\]\\))?\\sby (" + HOSTNAME_REGEX_STRING + ")( \\(("
-			+ HOSTNAME_REGEX_STRING + ")( \\[(.+)\\])?\\).*)?\\s(with.+)?((\r)?\n\\s)?(for <("
-			+ EMAIL_REGEX_STRING + ")>)?.*;(.+");
-*/
 	// saved for testing and to check group numbers, because now its a mess.... -> https://regex101.com/r/n2Nq8k/7
 
 	private Pattern CONTENT_RE = Pattern.compile("^Content-Type: (.+)(\n\\s.+)?");
 	private Pattern FROM_RE = Pattern.compile("^From: ([a-zA-Z0-9._+\\-\\s]+) <(" + EMAIL_REGEX_STRING + ")>");
 	private Pattern TO_RE = Pattern.compile("^To: ([a-zA-Z0-9._+\\-\\s]+) <(" + EMAIL_REGEX_STRING + ")>");
-
-	// TODO ADD MORE PATTERNS ?
-	// ...
 
 	public class Receiver {
 		public String _original;
@@ -68,7 +51,7 @@ public class HeaderParser {
 		public String byDomain;
 		public String byIP;
 
-	 	public String forEmail; // will be always the same as the recipient (most times at least)
+		public String forEmail; // will be always the same as the recipient (most times at least)
 		public String date;
 	}
 
@@ -113,7 +96,7 @@ public class HeaderParser {
 				Receiver newNode = new Receiver();
 				newNode._original = received.group();
 				newNode.fromHostname = received.group("fromHostname");
-		 		newNode.fromDomain = received.group("fromDomain");
+				newNode.fromDomain = received.group("fromDomain");
 				newNode.fromIP = received.group("fromIP");
 				newNode.authenticatedSender = received.group("authenticatedSender");
 				newNode.viaHostname = received.group("viaHostname");
@@ -141,17 +124,14 @@ public class HeaderParser {
 				this.to_Email = to.group(2);
 				i += to.group().length();
 			}
-			// ...
 		}
 	}
 
 	public static List<String> getIPs(String text) {
-		// TODO also match IPv6
-		Matcher ip = IP_RE.matcher(text);
+		// TODO Find IPv6
+		Matcher ipv4 = IPv4_RE.matcher(text);
 		List<String> foundIPs = new ArrayList<String>();
-		while (ip.find()) {
-			foundIPs.add(ip.group());
-		}
+		while (ipv4.find()) foundIPs.add(ipv4.group());
 		return foundIPs;
 	}
 

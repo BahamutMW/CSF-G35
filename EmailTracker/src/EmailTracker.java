@@ -104,6 +104,10 @@ public class EmailTracker {
 					List<String> foundIPs = HeaderParser.getIPs(header);
 					for (int i=0; i< foundIPs.size();i++)
 						System.out.printf("[%d] %s\n", i, foundIPs.get(i));
+					if (! (foundIPs.size() > 0)) {
+						System.out.println("No IPs were found.");
+						continue;
+					}
 					System.out.printf("Select the IP you want to trace\n#>:");
 					in = input.nextLine();
 					System.out.printf("Searching for IP: %s\n", foundIPs.get(Integer.parseInt(in)));
