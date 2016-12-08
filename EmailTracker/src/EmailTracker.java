@@ -166,6 +166,7 @@ public class EmailTracker {
 				// ------ Trace IP
 				try {
 					this.trace(selectedIP);
+					System.out.println("For additional information, consult the log.");
 				} catch (AddressNotFoundException | UnknownHostException e) {
 					System.out.printf("IP adress [%s] was not found in the database.\n", selectedIP);
 					continue;
@@ -184,12 +185,13 @@ public class EmailTracker {
 		public void writeParsedHeader(EmailHeaderParser he, String filename) throws IOException {
 			String logFile = filename + logExt;
 			FileOutputStream os = new FileOutputStream(logFile);
+			String line0 = "Results From Analysis: \n\n";
 			String line1 = String.format("From : %s [ %s ]\n",he.from_Name, he.from_Email);
 			String line2 = String.format("To : %s [ %s ]\n",he.to_Name, he.to_Email);
 			String line3 = String.format("Delivered To : %s\n",he.deliveredTo);
 			String line4 = String.format("Return Path : %s\n",he.returnPathEmail);
 			String line5 = String.format("Content Type : %s\n\n",he.contentType);
-			os.write((line1+line2+line3+line4+line5).getBytes()); // write 5 lines
+			os.write((line0+line1+line2+line3+line4+line5).getBytes()); // write 6 lines
 			int maxFH = 0, maxFI = 0, maxBH = 0, maxBI = 0, maxWT = 0;
 			for (int i = he.receiverPath.size()-1; i>=0; i--) { // get max lengths
 				EmailHeaderParser.Receiver r = he.receiverPath.get(i);
@@ -217,6 +219,11 @@ public class EmailTracker {
 					+ Integer.toString(maxBH + maxBI + 2) + "s--+------%" + Integer.toString(maxWT-4) + "s--+----------------------\n",
 					" ", " ", " ").replace(" ", "-").getBytes());
 			for (String s : toWrite) os.write(s.getBytes());
+			String additional = "\n\n" + "Additional Analysis: \n";
+			EmailVerifier ev = new EmailVerifier();
+			String evresult = ev.phishingVerifier(he.from_Email, he.returnPathEmail);
+			os.write((additional+evresult).getBytes());
+			
 			os.close();
 		}
 
