@@ -139,7 +139,7 @@ public class EmailHeaderParser {
 
 	public static void main(String[] args) {
 		// example main
-		Path path = Paths.get("EmailTracker/src/headertest.txt");
+		Path path = Paths.get("headertest.txt");
 		byte[] data;
 		try {
 			data = Files.readAllBytes(path);
