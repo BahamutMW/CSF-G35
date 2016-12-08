@@ -28,7 +28,7 @@ public class EmailHeaderParser {
 			+ HOSTNAME_REGEX_STRING + ")(?: \\((?<byDomain>" + HOSTNAME_REGEX_STRING + ")(?: \\[(?<byIP>"
 			+ IP_GENERIC_REGEX_STRING + ")\\])?\\).*)?(?:\\swith.+)?(?:\\sfor <(?<forEmail>" + EMAIL_REGEX_STRING
 			+ ")>)?.*;(?<date>.+) ");
-	// saved for testing and to check group numbers, because now its a mess.... -> https://regex101.com/r/n2Nq8k/7
+	// saved for testing and to check group numbers, because now its a mess.... -> https://regex101.com/r/n2Nq8k/10
 
 	private Pattern CONTENT_RE = Pattern.compile("^Content-Type: (.+)(\n\\s.+)?");
 	private Pattern FROM_RE = Pattern.compile("^From: ([a-zA-Z0-9._+\\-\\s]+) <(" + EMAIL_REGEX_STRING + ")>");

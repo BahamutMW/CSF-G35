@@ -27,7 +27,7 @@ import com.maxmind.geoip2.record.Subdivision;
 public class EmailTracker {
 	private UserInterface ui;
 	private Location location;
-	
+
 	public static void main(String[] args) {
 		EmailTracker et = new EmailTracker();
 		et.StartUI(et);
@@ -146,46 +146,41 @@ public class EmailTracker {
 					} catch (GeoIp2Exception e) {
 						e.printStackTrace();
 					}
-					
+
 					// ------ Googling location
 					JFrame test = new JFrame("Google Maps");
-					try {
-					String latitude = location.getLatitude().toString();
-					String longitude = location.getLongitude().toString();
-					String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center="
-					+ latitude
-					+ ","
-					+ longitude
-					+ "&zoom=15&size=612x612&scale=2&maptype=roadmap&markers=color:blue%7Clabel:T%7C"
-					+ latitude
-					+ ","
-					+ longitude;
 					String destinationFile = "image.jpg";
-					
-					// ------ Read map image and save
-					URL url = new URL(imageUrl);
-					InputStream is = url.openStream();
-					OutputStream os = new FileOutputStream(destinationFile);
-					byte[] b = new byte[2048];
-					int length;
-					while ((length = is.read(b)) != -1) {
-					os.write(b, 0, length);
-					}
-					is.close();
-					os.close();
+					try {
+						String latitude = location.getLatitude().toString();
+						String longitude = location.getLongitude().toString();
+						String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + ","
+								+ longitude
+								+ "&zoom=15&size=612x612&scale=2&maptype=roadmap&markers=color:blue%7Clabel:T%7C"
+								+ latitude + "," + longitude;
+
+						// ------ Read map image and save
+						URL url = new URL(imageUrl);
+						InputStream is = url.openStream();
+						OutputStream os = new FileOutputStream(destinationFile);
+						byte[] b = new byte[2048];
+						int length;
+						while ((length = is.read(b)) != -1) {
+							os.write(b, 0, length);
+						}
+						is.close();
+						os.close();
 					} catch (IOException e) {
-					e.printStackTrace();
-					System.exit(1);
+						e.printStackTrace();
+						System.exit(1);
 					}
-					
+
 					// ------ Starting GUI to show image
-					ImageIcon imageIcon = new ImageIcon((new ImageIcon("image.jpg"))
-					.getImage().getScaledInstance(630, 600,
-					java.awt.Image.SCALE_SMOOTH));
+					ImageIcon imageIcon = new ImageIcon((new ImageIcon(destinationFile)).getImage().getScaledInstance(630,
+							600, java.awt.Image.SCALE_SMOOTH));
 					test.add(new JLabel(imageIcon));
 					test.setVisible(true);
 					test.pack();
-					
+
 				} catch (IOException e) {
 					System.out.println("IOException: " + e.getMessage());
 				}
