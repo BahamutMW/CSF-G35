@@ -26,9 +26,9 @@ public class EmailHeaderParser {
 			+ ")\\]\\))?(?:\\s\\(Authenticated sender: (?<authenticatedSender>.+)\\))?(?:\\svia (?<viaHostname>"
 			+ HOSTNAME_REGEX_STRING + ")\\s\\((?<viaDomain>.+)?\\[(?<viaIP>.+)\\]\\))?\\sby (?<byHostname>"
 			+ HOSTNAME_REGEX_STRING + ")(?: \\((?<byDomain>" + HOSTNAME_REGEX_STRING + ")(?: \\[(?<byIP>"
-			+ IP_GENERIC_REGEX_STRING + ")\\])?\\).*)?(?:\\swith.+)?(?:\\sfor <(?<forEmail>" + EMAIL_REGEX_STRING
-			+ ")>)?.*;(?<date>.+) ");
-	// saved for testing and to check group numbers, because now its a mess.... -> https://regex101.com/r/n2Nq8k/10
+			+ IP_GENERIC_REGEX_STRING + ")\\])?\\))?(?:.*\\swith (?<withMethod>[A-Z]+))?(?:.*\\sfor <(?<forEmail>"
+			+ EMAIL_REGEX_STRING + ")>)?.*;(?<date>.+) ");
+	// saved for testing and to check group numbers, because now its a mess.... -> https://regex101.com/r/n2Nq8k/12
 
 	private Pattern CONTENT_RE = Pattern.compile("^Content-Type: (.+)(\n\\s.+)?");
 	private Pattern FROM_RE = Pattern.compile("^From: ([a-zA-Z0-9._+\\-\\s]+) <(" + EMAIL_REGEX_STRING + ")>");
@@ -46,6 +46,8 @@ public class EmailHeaderParser {
 		public String viaHostname;
 		public String viaDomain;
 		public String viaIP;
+
+		public String withMethod;
 
 		public String byHostname;
 		public String byDomain;
@@ -105,6 +107,7 @@ public class EmailHeaderParser {
 				newNode.byHostname = received.group("byHostname");
 				newNode.byDomain = received.group("byDomain");
 				newNode.byIP = received.group("byIP");
+				newNode.withMethod = received.group("withMethod");
 				newNode.forEmail = received.group("forEmail");
 				newNode.date = received.group("date").trim().replace("\n", " ");
 				this.receiverPath.add(newNode);
@@ -147,6 +150,7 @@ public class EmailHeaderParser {
 			System.out.println("Header Path: ");
 			for (EmailHeaderParser.Receiver r : he.receiverPath) {
 				System.out.printf("%s [%s] -> %s\n", r.fromHostname, r.fromIP, r.date);
+				System.out.printf("%s   - -  %s\n", r.withMethod, r.forEmail);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
