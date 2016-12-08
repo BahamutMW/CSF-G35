@@ -20,7 +20,6 @@ public class EmailHeaderParser {
 	private Pattern RETURN_PATH_RE = Pattern.compile("^Return-Path: <(" + EMAIL_REGEX_STRING + ")>");
 	private Pattern DELIVERED_TO_RE = Pattern.compile("^Delivered-To: (.+)");
 
-	// FIXME Doesnt capture forEmail...
 	private Pattern RECEIVED_RE = Pattern.compile("^Received:(?: from (?<fromHostname>" + HOSTNAME_REGEX_STRING
 			+ ")\\s\\((?<fromDomain>" + HOSTNAME_REGEX_STRING + "\\s)?\\[(?<fromIP>." + IP_GENERIC_REGEX_STRING
 			+ ")\\]\\))?(?:\\s\\(Authenticated sender: (?<authenticatedSender>.+)\\))?(?:\\svia (?<viaHostname>"
@@ -30,7 +29,7 @@ public class EmailHeaderParser {
 			+ EMAIL_REGEX_STRING + ")>)?.*;(?<date>.+) ");
 	// saved for testing and to check group numbers, because now its a mess.... -> https://regex101.com/r/n2Nq8k/12
 
-	private Pattern CONTENT_RE = Pattern.compile("^Content-Type: (.+)(\n\\s.+)?");
+	private Pattern CONTENT_RE = Pattern.compile("^Content-Type: (.+?);");
 	private Pattern FROM_RE = Pattern.compile("^From: ([a-zA-Z0-9._+\\-\\s]+) <(" + EMAIL_REGEX_STRING + ")>");
 	private Pattern TO_RE = Pattern.compile("^To: ([a-zA-Z0-9._+\\-\\s]+) <(" + EMAIL_REGEX_STRING + ")>");
 
@@ -114,7 +113,7 @@ public class EmailHeaderParser {
 				i += received.group().length();
 			}
 			else if (toParse.startsWith("Content-Type:") && content.find()) {
-				this.contentType = content.group();
+				this.contentType = content.group(1);
 				i += content.group().length();
 			}
 			else if (toParse.startsWith("From:") && from.find()) {
