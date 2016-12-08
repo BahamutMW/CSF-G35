@@ -129,14 +129,6 @@ public class EmailHeaderParser {
 		}
 	}
 
-	// XXX Not used
-	public static List<String> getIPs(String text) {
-		Matcher ipv4 = IPv4_RE.matcher(text);
-		List<String> foundIPs = new ArrayList<String>();
-		while (ipv4.find()) foundIPs.add(ipv4.group());
-		return foundIPs;
-	}
-
 	public static void main(String[] args) {
 		// example main
 		Path path = Paths.get("headertest.txt");
