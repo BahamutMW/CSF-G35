@@ -1,10 +1,13 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,7 +50,7 @@ public class EmailTracker {
 			_context = context;
 		}
 
-		public void trace(String IP) throws IOException, GeoIp2Exception {
+		public void trace(String IP) throws GeoIp2Exception, UnknownHostException {
 			URL url = getClass().getResource("City.mmdb");
 			String filename = url.getPath();
 
@@ -57,14 +60,22 @@ public class EmailTracker {
 			// This creates the DatabaseReader object, which should be reused
 			// across
 			// lookups.
-			DatabaseReader reader = new DatabaseReader.Builder(database).build();
+			CityResponse response = null;
+			try {
+				DatabaseReader reader = new DatabaseReader.Builder(database).build();
 
-			InetAddress ipAddress = InetAddress.getByName(IP);
+				InetAddress ipAddress = InetAddress.getByName(IP);
 
-			// Replace "city" with the appropriate method for your database,
-			// e.g.,
-			// "country".
-			CityResponse response = reader.city(ipAddress);
+				// Replace "city" with the appropriate method for your database,
+				// e.g.,
+				// "country".
+				 response = reader.city(ipAddress);
+			} catch (UnknownHostException e) {
+				throw e;
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
 
 			Country country = response.getCountry();
 			System.out.println("Country Iso Code: " + country.getIsoCode());
@@ -105,85 +116,100 @@ public class EmailTracker {
 				System.out.printf("Insert the file path:\n#>:");
 				in = input.nextLine();
 
-				Path path = Paths.get(in);
-				try {
-					byte[] data = Files.readAllBytes(path);
-					String header = new String(data);
-
-					// ------ Parse given file
-					System.out.println("Parsing File...");
-					EmailHeaderParser hp = new EmailHeaderParser(header);
-
-					// TODO options to select what action to take
-
-					// ------ Present retrieved IPs
-					System.out.println("Now retrieving IP data...");
-					int c = 0;
-					for (int i = 0; i < hp.receiverPath.size(); i++) {
-						EmailHeaderParser.Receiver r = hp.receiverPath.get(i);
-						if (r.fromIP != null) {
-							System.out.printf("[%d] %s [ %s ] - (%s)\n", c, r.fromIP, r.fromHostname, r.date);
-							c++;
-						}
-					}
-
-					if (!(hp.receiverPath.size() > 0)) {
-						System.out.println("No IPs were found.");
-						continue;
-					}
-
-					// ------ Select IP
-					System.out.printf("Select the IP you want to trace\n#>:");
-					in = input.nextLine();
-					String selectedIP = hp.receiverPath.get(Integer.parseInt(in)).fromIP;
-					System.out.printf("Searching for IP: %s\n", selectedIP);
-
-					// ------ Trace IP
-					try {
-						this.trace(selectedIP);
-					} catch (AddressNotFoundException e) {
-						System.out.printf("IP adress [%s] was not found in the database.\n", selectedIP);
-					} catch (GeoIp2Exception e) {
-						e.printStackTrace();
-					}
-
-					// ------ Googling location
-					JFrame test = new JFrame("Google Maps");
-					String destinationFile = "image.jpg";
-					try {
-						String latitude = location.getLatitude().toString();
-						String longitude = location.getLongitude().toString();
-						String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + ","
-								+ longitude
-								+ "&zoom=15&size=612x612&scale=2&maptype=roadmap&markers=color:blue%7Clabel:T%7C"
-								+ latitude + "," + longitude;
-
-						// ------ Read map image and save
-						URL url = new URL(imageUrl);
-						InputStream is = url.openStream();
-						OutputStream os = new FileOutputStream(destinationFile);
-						byte[] b = new byte[2048];
-						int length;
-						while ((length = is.read(b)) != -1) {
-							os.write(b, 0, length);
-						}
-						is.close();
-						os.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-						System.exit(1);
-					}
-
-					// ------ Starting GUI to show image
-					ImageIcon imageIcon = new ImageIcon((new ImageIcon(destinationFile)).getImage().getScaledInstance(630,
-							600, java.awt.Image.SCALE_SMOOTH));
-					test.add(new JLabel(imageIcon));
-					test.setVisible(true);
-					test.pack();
-
+				String header = null;
+				byte[] data = null;
+				try { // read file
+					Path path = Paths.get(in);
+					data = Files.readAllBytes(path);
+					header = new String(data);
 				} catch (IOException e) {
-					System.out.println("IOException: " + e.getMessage());
+					System.out.println("File doesnt exist: " + e.getMessage());
+					continue;
 				}
+
+				// ------ Parse given file
+				System.out.println("Parsing File...");
+				EmailHeaderParser hp = new EmailHeaderParser(header);
+
+				// ------ Present retrieved IPs
+				System.out.println("Now retrieving IP data...");
+				int c = 0;
+				for (int i = 0; i < hp.receiverPath.size(); i++) {
+					EmailHeaderParser.Receiver r = hp.receiverPath.get(i);
+					if (r.fromIP != null) {
+						System.out.printf("[%d] %s [ %s ] - (%s)\n", c, r.fromIP, r.fromHostname, r.date);
+						c++;
+					}
+				}
+
+				if (!(hp.receiverPath.size() > 0)) {
+					System.out.println("No IPs were found.");
+					continue;
+				}
+
+				// ------ Select IP
+				System.out.printf("Select the IP you want to trace\n#>:");
+				in = input.nextLine();
+				String selectedIP = null;
+				try {
+					selectedIP = hp.receiverPath.get(Integer.parseInt(in)).fromIP;
+				}
+				catch (NumberFormatException | IndexOutOfBoundsException e) {
+					System.out.println("Invalid number given, please select a valid option.");
+					continue;
+				}
+				System.out.printf("Searching for IP: %s\n", selectedIP);
+
+				// ------ Trace IP
+				try {
+					this.trace(selectedIP);
+				} catch (AddressNotFoundException | UnknownHostException e) {
+					System.out.printf("IP adress [%s] was not found in the database.\n", selectedIP);
+					continue;
+				} catch (GeoIp2Exception e) {
+					e.printStackTrace();
+				}
+
+				// ------ Googling location
+				JFrame test = new JFrame("Google Maps");
+				String destinationFile = "image.jpg";
+
+				String latitude = location.getLatitude().toString();
+				String longitude = location.getLongitude().toString();
+				String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + ","
+						+ longitude
+						+ "&zoom=15&size=612x612&scale=2&maptype=roadmap&markers=color:blue%7Clabel:T%7C"
+						+ latitude + "," + longitude;
+
+				// ------ Read map image and save
+				try {
+					URL url = new URL(imageUrl);
+					InputStream is = url.openStream();
+					OutputStream os = new FileOutputStream(destinationFile);
+					byte[] b = new byte[2048];
+					int length;
+					while ((length = is.read(b)) != -1) {
+						os.write(b, 0, length);
+					}
+					is.close();
+					os.close();
+				} catch (MalformedURLException e) {
+					continue;
+				} catch (FileNotFoundException e) {
+					System.out.println("Failed to create image file.");
+					continue;
+				} catch (IOException e) {
+					e.printStackTrace();
+					continue;
+				}
+
+				// ------ Starting GUI to show image
+				ImageIcon imageIcon = new ImageIcon((new ImageIcon(destinationFile)).getImage().getScaledInstance(630,
+						600, java.awt.Image.SCALE_SMOOTH));
+				test.add(new JLabel(imageIcon));
+				test.setVisible(true);
+				test.pack();
+
 			}
 		}
 	}
