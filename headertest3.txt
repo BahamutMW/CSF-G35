@@ -1,90 +1,117 @@
-Delivered-To: fabio4335@gmail.com
-Received: by 10.194.8.34 with SMTP id o2csp1702232wja;
-        Mon, 3 Oct 2016 10:45:27 -0700 (PDT)
-X-Received: by 10.28.107.22 with SMTP id g22mr10038252wmc.31.1475516727148;
-        Mon, 03 Oct 2016 10:45:27 -0700 (PDT)
-Return-Path: <miguel.guerra@tecnico.ulisboa.pt>
-Received: from smtp2.tecnico.ulisboa.pt (smtp2.tecnico.ulisboa.pt. [2001:690:2100:1::16])
-        by mx.google.com with ESMTP id m125si19802939wme.54.2016.10.03.10.45.26
-        for <fabio4335@gmail.com>;
-        Mon, 03 Oct 2016 10:45:27 -0700 (PDT)
-Received-SPF: pass (google.com: domain of miguel.guerra@tecnico.ulisboa.pt designates 2001:690:2100:1::16 as permitted sender) client-ip=2001:690:2100:1::16;
-Authentication-Results: mx.google.com;
-       dkim=pass header.i=@tecnico.ulisboa.pt;
-       spf=pass (google.com: domain of miguel.guerra@tecnico.ulisboa.pt designates 2001:690:2100:1::16 as permitted sender) smtp.mailfrom=miguel.guerra@tecnico.ulisboa.pt;
-       dmarc=pass (p=NONE dis=NONE) header.from=tecnico.ulisboa.pt
-Received: from localhost (localhost.localdomain [127.0.0.1]) by smtp2.tecnico.ulisboa.pt (Postfix) with ESMTP id 88A52700034A for <fabio4335@gmail.com>; Mon,
-  3 Oct 2016 18:45:26 +0100 (WEST)
-X-Virus-Scanned: by amavisd-new-2.10.1 (20141025) (Debian) at ist.utl.pt
-Received: from smtp2.tecnico.ulisboa.pt ([127.0.0.1]) by localhost (smtp2.tecnico.ulisboa.pt [127.0.0.1]) (amavisd-new, port 10025) with LMTP id PuEYIzfEhf32 for <fabio4335@gmail.com>; Mon,
-  3 Oct 2016 18:45:26 +0100 (WEST)
-Received: from mail3.ist.utl.pt (mail3.ist.utl.pt [IPv6:2001:690:2100:1::e1dc:b6b6]) by smtp2.tecnico.ulisboa.pt (Postfix) with ESMTP id 2DBF07000343 for <fabio4335@gmail.com>; Mon,
-  3 Oct 2016 18:45:26 +0100 (WEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tecnico.ulisboa.pt; s=mail; t=1475516726; bh=hW2V/SSvKvapbE8RDG6oOrdbyMgqSKvtjcsEsUTdqEM=; h=Date:From:To:Subject:In-Reply-To:References; b=OTZi69Ake8tp4LC3g86Sh6IUPsxBu5xjBKr55ucgqquP9llF4K/FkiD/bBb6EB6Uj
-	 s/f29OECBwKSY+ilItgE3oSJos+Ofk8USxIEdeLNdxZ7/XUwcJcN9J5TlXkq667QuI
-	 av9femg3VkEnMdNfal0LSe5DkRXs/lp8g+FaYW44=
-Received: from webmail.tecnico.ulisboa.pt (webmail3.tecnico.ulisboa.pt [IPv6:2001:690:2100:1::912f:b135]) (Authenticated sender: ist169770) by mail3.ist.utl.pt (Postfix) with ESMTPSA id 2B4118020B2D for <fabio4335@gmail.com>; Mon,
-  3 Oct 2016 18:45:26 +0100 (WEST)
-Received: from a109-49-150-47.cpe.netcabo.pt ([109.49.150.47]) via vs1.ist.utl.pt ([2001:690:2100:1::33]) by webmail.tecnico.ulisboa.pt with HTTP (HTTP/1.1 POST); Mon, 03 Oct 2016 18:45:26 +0100
+Return-Path: <groups.portfolios.coach_team_05a-bounces@mlists.ist.utl.pt>
+Delivered-To: ist169770@mail2-store.ist.utl.pt
+Received: from smtp2.ist.utl.pt (smtp2.ist.utl.pt [IPv6:2001:690:2100:1::16])
+	by mail2.ist.utl.pt (Postfix) with ESMTP id 12845203C827;
+	Tue,  6 Jan 2015 20:01:19 +0000 (WET)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp2.ist.utl.pt (Postfix) with ESMTP id 093557001B20;
+	Tue,  6 Jan 2015 20:01:19 +0000 (WET)
+X-Virus-Scanned: by amavisd-new-2.6.4 (20090625) (Debian) at ist.utl.pt
+Received: from smtp2.ist.utl.pt ([127.0.0.1])
+	by localhost (smtp2.ist.utl.pt [127.0.0.1]) (amavisd-new, port 10025)
+	with LMTP id SEpJZIchcGv4; Tue,  6 Jan 2015 20:01:18 +0000 (WET)
+Received: from mlists.ist.utl.pt (mlists.ist.utl.pt [IPv6:2001:690:2100:1::d])
+	by smtp2.ist.utl.pt (Postfix) with ESMTP id DC4FC7001B02;
+	Tue,  6 Jan 2015 20:01:18 +0000 (WET)
+Received: from mlists.ist.utl.pt (unknown [IPv6:::1])
+	by mlists.ist.utl.pt (Postfix) with ESMTP id 81F1A34080;
+	Tue,  6 Jan 2015 20:01:18 +0000 (WET)
+X-Original-To: groups.portfolios.coach_team_05a@mlists.ist.utl.pt
+Delivered-To: groups.portfolios.coach_team_05a@mlists.ist.utl.pt
+Received: from smtp2.ist.utl.pt (smtp2.ist.utl.pt [IPv6:2001:690:2100:1::16])
+	by mlists.ist.utl.pt (Postfix) with ESMTP id DBB7934080
+	for <groups.portfolios.coach_team_05a@mlists.ist.utl.pt>;
+	Tue,  6 Jan 2015 20:01:16 +0000 (WET)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp2.ist.utl.pt (Postfix) with ESMTP id A8D8A7000937
+	for <coach_team_05a@portfolios.tecnico.ulisboa.pt>;
+	Tue,  6 Jan 2015 20:01:16 +0000 (WET)
+X-Virus-Scanned: by amavisd-new-2.6.4 (20090625) (Debian) at ist.utl.pt
+Received: from smtp2.ist.utl.pt ([127.0.0.1])
+	by localhost (smtp2.ist.utl.pt [127.0.0.1]) (amavisd-new, port 10025)
+	with LMTP id FkZ31+5Hu6Zm
+	for <coach_team_05a@portfolios.tecnico.ulisboa.pt>;
+	Tue,  6 Jan 2015 20:01:16 +0000 (WET)
+Received: from mail2.ist.utl.pt (mail.ist.utl.pt [IPv6:2001:690:2100:1::8])
+	by smtp2.ist.utl.pt (Postfix) with ESMTP id 704B27000903
+	for <coach_team_05a@portfolios.tecnico.ulisboa.pt>;
+	Tue,  6 Jan 2015 20:01:16 +0000 (WET)
+Received: from webmail.tecnico.ulisboa.pt (webmail2.ist.utl.pt
+	[193.136.128.59]) (Authenticated sender: ist169879)
+	by mail2.ist.utl.pt (Postfix) with ESMTPSA id 67113203C827
+	for <coach_team_05a@portfolios.tecnico.ulisboa.pt>;
+	Tue,  6 Jan 2015 20:01:16 +0000 (WET)
+Received: from a95-93-193-2.cpe.netcabo.pt ([95.93.193.2])
+	by webmail.tecnico.ulisboa.pt
+	with HTTP (HTTP/1.1 POST); Tue, 06 Jan 2015 20:01:16 +0000
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="=_fd8cd52d8e4afcc82359e6ef9d311b83"
-Date: Mon, 03 Oct 2016 18:45:26 +0100
-From: Miguel Correia Guerra <miguel.guerra@tecnico.ulisboa.pt>
-To: Fabio R <fabio4335@gmail.com>
-Subject: Re: Grupo de CSF
-In-Reply-To: <CA+=WjcS5prb_3Y8UEyYxs5A0k3sL-x_RXqyV7sT-xrxjzC9sJw@mail.gmail.com>
-References: <CA+=WjcS5prb_3Y8UEyYxs5A0k3sL-x_RXqyV7sT-xrxjzC9sJw@mail.gmail.com>
-Message-ID: <295cb2eb56812585a26b9825f986ae7b@mail.tecnico.ulisboa.pt>
-X-Sender: miguel.guerra@tecnico.ulisboa.pt
-User-Agent: Roundcube Webmail/1.1.3
-
---=_fd8cd52d8e4afcc82359e6ef9d311b83
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=UTF-8
+Date: Tue, 06 Jan 2015 20:01:16 +0000
+From: Andre Rodrigues
+	<andre.pereira.rodrigues@ist.utl.pt>
+To: <coach_team_05a@portfolios.tecnico.ulisboa.pt>
+Subject: PPIII-AL 69879 Pedido de acesso 
+Message-ID: <2de4092d1a647e6e9986692c99a320cf@mail.ist.utl.pt>
+X-Sender: andre.pereira.rodrigues@ist.utl.pt
+User-Agent: Roundcube Webmail/0.7.2
+X-BeenThere: groups.portfolios.coach_team_05a@mlists.ist.utl.pt
+X-Mailman-Version: 2.1.11
+Precedence: list
+Sender: groups.portfolios.coach_team_05a-bounces@mlists.ist.utl.pt
+Errors-To: groups.portfolios.coach_team_05a-bounces@mlists.ist.utl.pt
 
+Caros colegas,
 
+No dia 3 tive um imprevisto que me levou a não conseguir terminar os 
+relatórios da disciplina. Seguidamente, enviei email ao prof. 
+responsável para poder entregar os relatórios na época de recurso.
+Entretanto não obtive resposta, mesmo após o envio de um novo email dia 
+5.
 
-Boas, sim eu vi o mail do professor. Ainda nÃ£o temos nada definido em
-concreto, pelo que estamos abertos a sugestÃµes.
+O que é que posso fazer?
 
-De qualquer forma se tiveres tempo quarta ou quinta podemos combinar
-isso. Quando Ã© que te dava mais jeito?
+Abaixo seguem os emails que enviei ao prof. e aos quais não obtive 
+qualquer resposta.
 
-A 2016-10-03 11:56, Fabio R escreveu:
+Cumprimentos,
+André Rodrigues nº 69879
 
-> Bom dia, sou o Fabio, o professor juntou-me ao vosso grupo de CSF.
-> JÃ¡ tem um projecto definido? Querem combinar um dia para nos juntarmos e fazermos a proposta?
-> O meu numero Ã©: 966996041
-> Digam-me qualquer coisa.
-> Cumprimentos.
+-------- Mensagem Original --------
+Assunto: Re: PPIII-AL 69879 Pedido de acesso à época de Recurso
+Data: 2015-01-05 12:55
+Remetente: André Filipe Pereira Rodrigues 
+<andre.pereira.rodrigues@ist.utl.pt>
+Para: Rui António dos Santos Cruz <rui.s.cruz@tecnico.ulisboa.pt>
 
+Bom dia,
 
---=_fd8cd52d8e4afcc82359e6ef9d311b83
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
+No passado dia 3 de Janeiro enviei um email a pedir acesso à época de 
+recurso de entrega do relatório da disciplina de PPIII. Pela razão 
+explicada no email, não consegui entregar os relatórios no prazo 
+estipulado.
+Como não obtive uma resposta ao email, venho por este meio reenviar o 
+pedido.
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
-=3DUTF-8" /></head><body style=3D'font-size: 10pt; font-family: Verdana,Gen=
-eva,sans-serif'>
-<p>Boas, sim eu vi o mail do professor. Ainda n&atilde;o temos nada definid=
-o em concreto, pelo que estamos abertos a sugest&otilde;es.</p>
-<p>De qualquer forma se tiveres tempo quarta ou quinta podemos combinar iss=
-o. Quando &eacute; que te dava mais jeito?</p>
-<p>A 2016-10-03 11:56, Fabio R escreveu:</p>
-<blockquote type=3D"cite" style=3D"padding: 0 0.4em; border-left: #1010ff 2=
-px solid; margin: 0"><!-- html ignored --><!-- head ignored --><!-- meta ig=
-nored -->
-<div dir=3D"ltr">Bom dia, sou o Fabio, o professor juntou-me ao vosso grupo=
- de CSF.
-<div>J&aacute; tem um projecto definido? Querem combinar um dia para nos ju=
-ntarmos e fazermos a proposta?</div>
-<div>O meu numero &eacute;: 966996041</div>
-<div>Digam-me qualquer coisa.</div>
-<div>Cumprimentos.</div>
-</div>
-</blockquote>
-<p>&nbsp;</p>
-<div>&nbsp;</div>
-</body></html>
+Cumprimentos,
+André Rodrigues nº 69879
 
---=_fd8cd52d8e4afcc82359e6ef9d311b83--
+On 03 Jan 2015, at 20:19, André Rodrigues 
+<andre.pereira.rodrigues@tecnico.ulisboa.pt> wrote:
+
+Boa tarde,
+
+Venho por este meio pedir para ter acesso à época de recurso da entrega 
+dos relatórios da disciplina de Portfolio Pessoal III. Inicialmente 
+tinha planeado terminar os relatórios e dar os retoques finais no dia de 
+hoje (3/1/2015) e entregar no Fénix, mas aconteceu um imprevisto, onde 
+durante o dia de hoje tive de acompanhar um familiar próximo ao hospital 
+de urgência, e assim, não consegui terminar a escrita dos relatórios.
+
+Ainda é possível aceder à época de recurso?
+Peço desculpa pelo pedido a esta data, mas infelizmente não foi 
+previsto.
+
+Cumprimentos,
+André Rodrigues nº 69879

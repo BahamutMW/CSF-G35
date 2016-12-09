@@ -1,0 +1,60 @@
+Return-Path: <jgoncalosrodrigues@ist.utl.pt>
+Delivered-To: ist169770@mail3-store.ist.utl.pt
+Received: from smtp1.ist.utl.pt (smtp1.ist.utl.pt [193.136.128.21])
+	by mail3.ist.utl.pt (Postfix) with ESMTP id D4DE8801FDC0;
+	Sun, 29 May 2016 23:18:34 +0100 (WEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp1.ist.utl.pt (Postfix) with ESMTP id CA504402FCBA;
+	Sun, 29 May 2016 23:18:34 +0100 (WEST)
+X-Virus-Scanned: by amavisd-new-2.7.1 (20120429) (Debian) at ist.utl.pt
+Received: from smtp1.ist.utl.pt ([127.0.0.1])
+	by localhost (smtp1.ist.utl.pt [127.0.0.1]) (amavisd-new, port 10025)
+	with LMTP id lFEarCYPRHtM; Sun, 29 May 2016 23:18:34 +0100 (WEST)
+Received: from mail3.ist.utl.pt (mail3.ist.utl.pt [IPv6:2001:690:2100:1::e1dc:b6b6])
+	by smtp1.ist.utl.pt (Postfix) with ESMTP id 70BB8402FCB8;
+	Sun, 29 May 2016 23:18:34 +0100 (WEST)
+Received: from webmail.tecnico.ulisboa.pt (webmail3.tecnico.ulisboa.pt [IPv6:2001:690:2100:1::912f:b135])
+	(Authenticated sender: ist170958)
+	by mail3.ist.utl.pt (Postfix) with ESMTPSA id 6DB3A801FDC0;
+	Sun, 29 May 2016 23:18:34 +0100 (WEST)
+Received: from a109-48-49-56.cpe.netcabo.pt ([109.48.49.56])
+ via vs1.ist.utl.pt ([2001:690:2100:1::33])
+ by webmail.tecnico.ulisboa.pt
+ with HTTP (HTTP/1.1 POST); Sun, 29 May 2016 23:18:34 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+Date: Sun, 29 May 2016 23:18:34 +0100
+From: Jose Rodrigues
+ <jgoncalosrodrigues@ist.utl.pt>
+To: = Luis Veiga
+ <luis.veiga@tecnico.ulisboa.pt>
+Cc: Diogo Miguel Marcos Raposo <diogo.m.m.raposo@tecnico.ulisboa.pt>, Miguel
+ Correia Guerra <miguel.guerra@tecnico.ulisboa.pt>
+Subject: Projecto Problemas
+Message-ID: <918295801020c9e86059eee0f9db688c@mail.ist.utl.pt>
+X-Sender: jgoncalosrodrigues@ist.utl.pt
+User-Agent: Roundcube Webmail/1.1.3
+
+Caro professor,
+
+Como acordado, envio-lhe as razões que encontramos para o nosso projecto 
+não funcionar como esperado.
+
+-A utilização das métricas para o load-balacing, não utilizavam valores 
+estáticos correctos para a designação de trabalho, este problema foi 
+resolvido com recurso a utilização de CPU actual, (possível pelo método 
+nativo fornecido pela toolkit da Amazon), bem como recorrendo apenas as 
+métricas mais recentes, em vez de todas as guardadas para uma dada 
+instancia.
+
+-A inconsistência do Auto-Scaler em criar instancias novas e desligar as 
+mesmas por falta de trabalho, este problema devia-se ao problema 
+previamente mencionado, e foi resolvido ao analisar as métricas 
+armazenadas num dado intervalo de tempo, em vez de verificar o estado da 
+instancia no momento de analise.
+
+Cumprimentos,
+
+Gonçalo Rodrigues - 70958

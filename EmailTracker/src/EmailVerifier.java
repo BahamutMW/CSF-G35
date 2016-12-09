@@ -7,6 +7,7 @@ public class EmailVerifier {
 	
 	public String phishingVerifier(String from, String retpath){
 		String response;
+		System.out.println(from);
 		String fromemail = from.trim();
 		String returnemail = retpath.trim();
 		if(returnemail.equals(fromemail)){
